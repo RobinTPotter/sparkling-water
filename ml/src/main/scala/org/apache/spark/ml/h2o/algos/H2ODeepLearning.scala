@@ -44,6 +44,8 @@ class H2ODeepLearning(parameters: Option[DeepLearningParameters], override val u
 
   def this()(implicit h2oContext: H2OContext, sqlContext: SQLContext) = this(None, Identifiable.randomUID("dl"))
 
+  def this(uid: String, hc: H2OContext, sqlContext: SQLContext) = this(None, uid)(hc, sqlContext)
+
   def this(parameters: DeepLearningParameters)(implicit h2oContext: H2OContext, sqlContext: SQLContext) = this(Option(parameters), Identifiable.randomUID("dl"))
 
   def this(parameters: DeepLearningParameters, uid: String)(implicit h2oContext: H2OContext, sqlContext: SQLContext) = this(Option(parameters), uid)
@@ -98,8 +100,7 @@ trait H2ODeepLearningParams extends H2OAlgoParams[DeepLearningParameters] {
   def setHidden(value: Array[Int]) = set(hidden, value) {
     getParams._hidden = value
   }
-
-
+  
   /**
     * All parameters should be set here along with their documentation and explained default values
     */
